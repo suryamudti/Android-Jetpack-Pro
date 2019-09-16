@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white">
+
+    <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/colorPrimary">
+
+        <ImageView
+                android:id="@+id/back_button"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/ic_back" />
+
+        <TextView
+                android:id="@+id/titlee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                
+                android:text="Detail Movie"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        <ImageView
+                android:id="@+id/share_button"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/ic_share" />
+
+    </RelativeLayout>
+
+    <ImageView
+            android:id="@+id/img_thumbnaill"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="fitXY"
+            android:layout_below="@id/header"
+            android:src="@color/gray" />
+
+    <ImageView
+            android:id="@+id/youtube"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="102dp"
+            android:src="@drawable/youtube" />
+
+    <ImageView
+            android:id="@+id/img_posterr"
+            android:layout_width="120dp"
+            android:layout_height="150dp"
+            android:layout_below="@id/img_thumbnaill"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="-30dp"
+            android:scaleType="fitXY"
+            android:src="@color/colorPrimary" />
+
+    <TextView
+            android:id="@+id/judul"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_thumbnaill"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="5dp"
+            android:layout_toRightOf="@+id/img_posterr"
+            
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="Captain America: The First Avenger" />
+
+    <LinearLayout
+            android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/judul"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_toRightOf="@id/img_posterr"
+            android:orientation="horizontal">
+
+        <TextView
+                android:id="@+id/yearr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                tools:text="2018" />
+
+        <ImageView
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:src="@drawable/dot" />
+
+        <TextView
+                android:id="@+id/genree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                tools:text="Adventure, Sci-fi" />
+
+        <ImageView
+                android:layout_width="7dp"
+                android:layout_height="7dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:src="@drawable/dot" />
+
+        <TextView
+                android:id="@+id/durationn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                tools:text="6 Season" />
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/txtrating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/info"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@id/img_posterr"
+            android:background="@drawable/rounded_bg"
+            
+            android:padding="8dp"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="8.5" />
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_posterr"
+            android:id="@+id/txt_desc"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="8dp"
+            
+            android:text="In the early 1960s, during the height of the Cold War, a mutant named Charles Xavier (James McAvoy) meets a fellow mutant named Erik Lehnsherr (Michael Fassbender). Despite their vastly different backgrounds -- Charles grew up with a wealthy family, while Erik lost his parents at Auschwitz -- the two become close friends. As the world teeters on the brink of a nuclear war, Charles and Erik with other mutants join forces to save humanity. However, a situation soon tears the friends apart."
+            android:layout_marginEnd="8dp"/>
+</RelativeLayout>
