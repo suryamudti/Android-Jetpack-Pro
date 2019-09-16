@@ -20,7 +20,6 @@ class MovieViewModel(
 ) : ViewModel(){
 
     private lateinit var listMovies : MutableLiveData<List<Movie>>
-//    internal val movies : LiveData<List<Movie>> get() = listMovies
 
     var movieListener : MovieListener?= null
 

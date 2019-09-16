@@ -16,10 +16,9 @@ class TvshowViewModel(
 ) : ViewModel() {
     private lateinit var  listTVShows : MutableLiveData<List<TVShow>>
 
-//    internal val tvShows : LiveData<List<TVShow>> get() = listTVShows
-
     var tvShowListener : TVShowListener ?= null
 
+    /*API*/
     fun getTVShows(type: Int): LiveData<List<TVShow>>{
         if (!::listTVShows.isInitialized || type == Constants.REFRESH){
             listTVShows = MutableLiveData()
