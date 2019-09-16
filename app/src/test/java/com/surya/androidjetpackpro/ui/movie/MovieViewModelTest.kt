@@ -1,13 +1,11 @@
 package com.surya.androidjetpackpro.ui.movie
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.MutableLiveData
-import com.surya.androidjetpackpro.data.models.Movie
 import com.surya.androidjetpackpro.data.remote.responses.MoviesResponse
 import com.surya.androidjetpackpro.data.repositories.MovieRepository
-import com.surya.androidjetpackpro.utils.Constants
-import junit.framework.Assert.assertNotNull
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
@@ -33,12 +31,8 @@ class MovieViewModelTest{
     @JvmField
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private var repository = Mockito.mock(MovieRepository::class.java)
-
     @Mock
-    private lateinit var viewModel: MovieViewModel
-
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
+    private var repository = Mockito.mock(MovieRepository::class.java)
 
     private val testDispatcher = TestCoroutineDispatcher()
 
@@ -47,10 +41,8 @@ class MovieViewModelTest{
 
     @Before
     fun setup(){
-
-        Dispatchers.setMain(testDispatcher)
         MockitoAnnotations.initMocks(this)
-        viewModel = MovieViewModel(repository)
+        Dispatchers.setMain(testDispatcher)
     }
 
     @After
@@ -60,14 +52,11 @@ class MovieViewModelTest{
     }
 
     @Test
-    fun getMovies()  = testDispatcher.runBlockingTest {
-        MainScope().launch {
+    fun getMovies() = testDispatcher.runBlockingTest {
+        GlobalScope.launch {
             Mockito.`when`(repository?.getMovies()).thenReturn(response)
-//            Mockito.verify(viewModel)?.getMovies(Constants.DEFAULT)
+            Mockito.verify(repository)?.getMovies()
         }
-
-
-
     }
 
 }
