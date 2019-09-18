@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.surya.androidjetpackpro.R
+import com.surya.androidjetpackpro.ui.favorite.FavoriteFragment
 import com.surya.androidjetpackpro.ui.movie.MovieFragment
 import com.surya.androidjetpackpro.ui.tvshow.TVShowFragment
 
@@ -22,6 +23,10 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_tvshow -> {
                 switchFragment(TVShowFragment())
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.action_favorite -> {
+                switchFragment(FavoriteFragment())
                 return@OnNavigationItemSelectedListener true
             }
         }

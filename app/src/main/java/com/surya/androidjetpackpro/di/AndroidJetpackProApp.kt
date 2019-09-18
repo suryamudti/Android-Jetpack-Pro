@@ -1,6 +1,7 @@
 package com.surya.androidjetpackpro.di
 
 import android.app.Application
+import com.surya.androidjetpackpro.data.local.MyDatabase
 import com.surya.androidjetpackpro.data.remote.MyApiService
 import com.surya.androidjetpackpro.data.remote.NetworkConnectionInterceptor
 import com.surya.androidjetpackpro.data.repositories.MovieRepository
@@ -24,8 +25,9 @@ class AndroidJetpackProApp : Application(), KodeinAware {
         import(androidXModule(this@AndroidJetpackProApp))
         bind() from singleton { NetworkConnectionInterceptor(instance()) }
         bind() from singleton { MyApiService(instance()) }
-        bind() from singleton { MovieRepository(instance()) }
-        bind() from singleton { TvShowRepository(instance()) }
+        bind() from singleton { MyDatabase(instance()) }
+        bind() from singleton { MovieRepository(instance(),instance()) }
+        bind() from singleton { TvShowRepository(instance(),instance()) }
 
         bind() from  provider { MovieViewModelFactory(instance()) }
         bind() from  provider { TvshowViewModelFactory(instance()) }

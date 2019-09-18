@@ -4,9 +4,11 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.0"
+    buildToolsVersion "29.0.1"
     defaultConfig {
         applicationId "com.surya.androidjetpackpro"
         minSdkVersion 19
@@ -56,12 +58,19 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:$androidXLegacySupport"
 
     // Dependencies for Architecture Component
-    implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion"
-    annotationProcessor "androidx.room:room-compiler:$roomVersion"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
     implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
+
+    // Room Database
+    implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    annotationProcessor "androidx.room:room-compiler:$roomVersion"
 
     // Retrofit and GSON
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
@@ -69,7 +78,6 @@ dependencies {
 
     // Kotlin Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
-//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
 
     // Kodein Dependency Injection
     implementation "org.kodein.di:kodein-di-generic-jvm:$kodeinVersion"

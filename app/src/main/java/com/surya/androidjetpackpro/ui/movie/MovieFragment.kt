@@ -75,10 +75,7 @@ class MovieFragment : Fragment(), MovieListener, KodeinAware {
             })
 
             viewModel.movieListener = this
-
         }
-
-
     }
 
     override fun onStarted() {

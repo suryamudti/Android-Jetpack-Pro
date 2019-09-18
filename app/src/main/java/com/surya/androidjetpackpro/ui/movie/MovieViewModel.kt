@@ -31,7 +31,6 @@ class MovieViewModel(
             EspressoIdlingResource.increment()
             Coroutines.main {
                 try {
-                    Log.e("datass","passeddd type "+type+" value "+listMovies.value)
                     val response = repository.getMovies()
                     response.results.let {
                         listMovies.postValue(it)
@@ -44,6 +43,24 @@ class MovieViewModel(
             }
         }
         return listMovies
+    }
+
+    /*Local Database*/
+
+    fun getLocalMovie() = repository.getAllMovies()
+
+    fun getSingleLocalMovie(id: Int) = repository.getSingleMovie(id)
+
+    fun saveMovie(movie: Movie){
+        Coroutines.io {
+            repository.saveMovies(movie)
+        }
+    }
+
+    fun deleteMovie(movie : Movie){
+        Coroutines.io {
+            repository.deleteMovie(movie)
+        }
     }
 
 }

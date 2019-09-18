@@ -35,7 +35,7 @@ abstract class MyDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context) =  Room.databaseBuilder(
             context.applicationContext,
             MyDatabase::class.java,
-            "mademovie.db"
+            "jetpackpro.db"
         ).build()
     }
 }

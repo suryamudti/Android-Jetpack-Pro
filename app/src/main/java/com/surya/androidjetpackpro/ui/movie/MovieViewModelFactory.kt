@@ -7,7 +7,7 @@ import com.surya.androidjetpackpro.data.repositories.MovieRepository
 /**
  * Created by suryamudti on 27/08/2019.
  */
-class MovieViewModelFactory(val repository: MovieRepository) : ViewModelProvider.NewInstanceFactory(){
+class MovieViewModelFactory(private val repository: MovieRepository) : ViewModelProvider.NewInstanceFactory(){
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return MovieViewModel(repository) as T
