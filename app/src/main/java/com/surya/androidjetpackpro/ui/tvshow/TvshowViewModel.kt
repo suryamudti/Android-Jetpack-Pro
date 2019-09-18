@@ -40,4 +40,16 @@ class TvshowViewModel(
         }
         return listTVShows
     }
+
+    fun getLocalTVShow() = repository.getAllTVShow()
+
+    fun getSingleLocalTVShow(id : Int) = repository.getSingleTVShow(id)
+
+    fun saveTVShow(tvShow: TVShow){
+        Coroutines.io {repository.saveTVShow(tvShow)}
+    }
+
+    fun deleteTVShow(tvShow: TVShow){
+        Coroutines.io { repository.deleteTVShow(tvShow) }
+    }
 }
