@@ -7,10 +7,10 @@ class Constants {
     companion object{
 
         // extras
-        val MOVIE_ID_EXTRAS = "extra_movie_id"
-        val TV_SHOW_ID_EXTRAS = "extra_tv_show_id"
-        val REFRESH = 1
-        val DEFAULT = 0
+        const val MOVIE_ID_EXTRAS = "extra_movie_id"
+        const val TV_SHOW_ID_EXTRAS = "extra_tv_show_id"
+        const val REFRESH = 1
+        const val DEFAULT = 0
 
     }
 }

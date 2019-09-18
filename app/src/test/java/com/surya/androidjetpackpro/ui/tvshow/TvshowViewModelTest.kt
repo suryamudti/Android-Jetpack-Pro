@@ -5,6 +5,9 @@ import com.surya.androidjetpackpro.data.remote.responses.MoviesResponse
 import com.surya.androidjetpackpro.data.remote.responses.TVShowResponse
 import com.surya.androidjetpackpro.data.repositories.MovieRepository
 import com.surya.androidjetpackpro.data.repositories.TvShowRepository
+import junit.framework.Assert
+import junit.framework.Assert.assertNotNull
+import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -20,6 +23,8 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
 /**
@@ -56,8 +61,14 @@ class TvshowViewModelTest {
     @Test
     fun getTvShow() = testDispatcher.runBlockingTest {
         GlobalScope.launch {
-            Mockito.`when`(repository?.getTVShows()).thenReturn(response)
-            Mockito.verify(repository)?.getTVShows()
+            `when`(repository?.getTVShows()).thenReturn(response)
+
+            val tvShowResponse = repository.getTVShows()
+            verify(repository)?.getTVShows()
+
+            assertNotNull(tvShowResponse)
+
+            assertTrue(tvShowResponse.results.size > 1)
         }
     }
 }

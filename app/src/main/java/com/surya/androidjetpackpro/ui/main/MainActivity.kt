@@ -14,10 +14,6 @@ class MainActivity : AppCompatActivity() {
     private val SELECTED_MENU = "selected_menu"
     private var navView: BottomNavigationView? = null
 
-    private lateinit var activedFragment : Fragment
-    private lateinit var f1 : Fragment
-    private lateinit var f2 : Fragment
-
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.action_movie -> {

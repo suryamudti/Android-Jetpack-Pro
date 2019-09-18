@@ -20,4 +20,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="movie">Movie</string>
     <string name="tvshow">Tv Show</string>
+    
+    <string name="detail_movie">Detail Movie</string>
+    <string name="description_detail">In the early 1960s, during the height of the Cold War, a mutant named Charles Xavier (James McAvoy) meets a fellow mutant named Erik Lehnsherr (Michael Fassbender). Despite their vastly different backgrounds -- Charles grew up with a wealthy family, while Erik lost his parents at Auschwitz -- the two become close friends. As the world teeters on the brink of a nuclear war, Charles and Erik with other mutants join forces to save humanity. However, a situation soon tears the friends apart.</string>
 </resources>

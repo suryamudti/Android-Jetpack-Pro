@@ -1,8 +1,11 @@
 package com.surya.androidjetpackpro.ui.movie
 
+import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.surya.androidjetpackpro.data.remote.responses.MoviesResponse
 import com.surya.androidjetpackpro.data.repositories.MovieRepository
+import junit.framework.Assert.assertNotNull
+import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -18,6 +21,8 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
 /**
@@ -54,8 +59,15 @@ class MovieViewModelTest{
     @Test
     fun getMovies() = testDispatcher.runBlockingTest {
         GlobalScope.launch {
-            Mockito.`when`(repository?.getMovies()).thenReturn(response)
-            Mockito.verify(repository)?.getMovies()
+            `when`(repository?.getMovies()).thenReturn(response)
+
+            val moviesResponse = repository.getMovies()
+            verify(repository)?.getMovies()
+
+            assertNotNull(moviesResponse)
+
+            assertTrue(moviesResponse.results.size>1)
+
         }
     }
 
