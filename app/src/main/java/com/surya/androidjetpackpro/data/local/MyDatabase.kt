@@ -4,8 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.surya.androidjetpackpro.data.local.dao.FavoriteMovieDao
-import com.surya.androidjetpackpro.data.local.dao.FavoriteTvSeriesDao
+import com.surya.androidjetpackpro.data.local.dao.FavoriteDao
 import com.surya.androidjetpackpro.data.models.Movie
 import com.surya.androidjetpackpro.data.models.TVShow
 
@@ -14,28 +13,30 @@ import com.surya.androidjetpackpro.data.models.TVShow
  */
 @Database(
     entities = [Movie::class, TVShow::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class MyDatabase : RoomDatabase() {
 
-    abstract fun getFavoriteMovieDao() : FavoriteMovieDao
-    abstract fun getFavoriteTVShowDao() : FavoriteTvSeriesDao
+    abstract val favoriteDao : FavoriteDao
 
     companion object{
         @Volatile
-        private var instance: MyDatabase? = null
-        private val LOCK = Any()
-
-        operator fun invoke(context: Context) = instance ?: synchronized(LOCK){
-            instance?:buildDatabase(context).also {
-                instance = it
+        private var instanceDb: MyDatabase? = null
+        fun getDatabase(context: Context): MyDatabase {
+            val tempInstance = instanceDb
+            if (tempInstance != null) {
+                return tempInstance
+            }
+            synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    MyDatabase::class.java,
+                    "jetpackpro.db"
+                ).build()
+                instanceDb = instance
+                return instance
             }
         }
-
-        private fun buildDatabase(context: Context) =  Room.databaseBuilder(
-            context.applicationContext,
-            MyDatabase::class.java,
-            "jetpackpro.db"
-        ).build()
     }
 }

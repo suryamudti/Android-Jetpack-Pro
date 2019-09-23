@@ -1,20 +1,11 @@
 package com.surya.androidjetpackpro.ui.tvshow
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.surya.androidjetpackpro.data.remote.responses.MoviesResponse
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.PagedList
+import com.surya.androidjetpackpro.data.models.TVShow
 import com.surya.androidjetpackpro.data.remote.responses.TVShowResponse
-import com.surya.androidjetpackpro.data.repositories.MovieRepository
-import com.surya.androidjetpackpro.data.repositories.TvShowRepository
-import junit.framework.Assert
-import junit.framework.Assert.assertNotNull
-import junit.framework.Assert.assertTrue
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
+import com.surya.androidjetpackpro.data.repositories.AppRepository
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -39,9 +30,8 @@ class TvshowViewModelTest {
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private var repository = Mockito.mock(TvShowRepository::class.java)
-
-    private val testDispatcher = TestCoroutineDispatcher()
+    private var repository = Mockito.mock(AppRepository::class.java)
+    private var viewModel: TvshowViewModel? = null
 
     @Mock
     private lateinit var response: TVShowResponse
@@ -49,26 +39,21 @@ class TvshowViewModelTest {
     @Before
     fun setup(){
         MockitoAnnotations.initMocks(this)
-        Dispatchers.setMain(testDispatcher)
+        viewModel = TvshowViewModel(repository)
     }
 
     @After
-    fun tearDown(){
-        Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
-        testDispatcher.cleanupTestCoroutines()
-    }
+    fun tearDown(){}
 
     @Test
-    fun getTvShow() = testDispatcher.runBlockingTest {
-        GlobalScope.launch {
-            `when`(repository?.getTVShows()).thenReturn(response)
+    fun getTvShow(){
+        val fakeData : MutableLiveData<PagedList<TVShow>> = MutableLiveData()
+        val pagedList = Mockito.mock(PagedList::class.java)
 
-            val tvShowResponse = repository.getTVShows()
-            verify(repository)?.getTVShows()
 
-            assertNotNull(tvShowResponse)
+        fakeData.value = pagedList as PagedList<TVShow>
 
-            assertTrue(tvShowResponse.results.size > 1)
-        }
+        `when`(repository.getRemoteTvShow()).thenReturn(fakeData)
+        verify(repository).getRemoteTvShow()
     }
 }

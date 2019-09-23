@@ -1,8 +1,5 @@
 package com.surya.androidjetpackpro.ui.movies
 
-import android.util.Log
-import androidx.recyclerview.widget.RecyclerView
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
@@ -16,7 +13,6 @@ import com.surya.androidjetpackpro.testing.SingleFragmentActivity
 import com.surya.androidjetpackpro.ui.movie.MovieFragment
 import com.surya.androidjetpackpro.utils.EspressoIdlingResource
 import com.xwray.groupie.kotlinandroidextensions.ViewHolder
-import kotlinx.android.synthetic.main.movie_fragment.view.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -47,6 +43,8 @@ class MovieFragmentTest {
     fun getMoviesData(){
         onView(withId(R.id.rv_movie)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_movie)).perform(RecyclerViewActions.actionOnItemAtPosition<ViewHolder>(0, click()))
+
+        onView(withId(R.id.menu_add_to_favorite)).perform(click())
     }
 
 }

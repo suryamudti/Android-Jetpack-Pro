@@ -2,20 +2,27 @@ package com.surya.androidjetpackpro.data.local.dao
 
 import android.database.Cursor
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.surya.androidjetpackpro.data.models.Movie
+import com.surya.androidjetpackpro.data.models.TVShow
 
 /**
- * Created by suryamudti on 18/09/2019.
+ * Created by suryamudti on 22/09/2019.
  */
 
 @Dao
-interface FavoriteMovieDao {
+interface FavoriteDao {
+
+    // Movie
     @Insert
-    suspend fun insertMovie( movie : Movie)
+    fun insertMovie( movie : Movie)
 
     @Query("SELECT * FROM  Movie")
     fun getAllMovies() : LiveData<List<Movie>>
+
+    @Query("SELECT * FROM  Movie")
+    fun getAllMoviesPaged() : DataSource.Factory<Int, Movie>
 
     @Query("SELECT * FROM  Movie")
     fun getMoviesFromWidget() : List<Movie>
@@ -37,4 +44,21 @@ interface FavoriteMovieDao {
 
     @Update
     fun update (movie: Movie) : Int
+
+
+    // TV Show
+    @Insert
+    fun insertTVShow( tvShow: TVShow)
+
+    @Query("SELECT * FROM  TVShow")
+    fun getAllTVShows() : LiveData<List<TVShow>>
+
+    @Query("SELECT * FROM  TVShow")
+    fun getAllTVShowsPaged() : DataSource.Factory<Int, TVShow>
+
+    @Query("SELECT * FROM TVShow WHERE id = :id")
+    fun getSingleTVShow(id : Int) : LiveData<TVShow>
+
+    @Delete
+    fun deleteTVShows(tvShow: TVShow)
 }

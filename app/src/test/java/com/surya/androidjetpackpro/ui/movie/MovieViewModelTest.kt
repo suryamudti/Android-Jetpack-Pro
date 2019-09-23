@@ -1,9 +1,11 @@
 package com.surya.androidjetpackpro.ui.movie
 
-import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.PagedList
+import com.surya.androidjetpackpro.data.models.Movie
 import com.surya.androidjetpackpro.data.remote.responses.MoviesResponse
-import com.surya.androidjetpackpro.data.repositories.MovieRepository
+import com.surya.androidjetpackpro.data.repositories.AppRepository
 import junit.framework.Assert.assertNotNull
 import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.Dispatchers
@@ -21,8 +23,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 
 /**
@@ -36,10 +37,8 @@ class MovieViewModelTest{
     @JvmField
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    @Mock
-    private var repository = Mockito.mock(MovieRepository::class.java)
-
-    private val testDispatcher = TestCoroutineDispatcher()
+    private val repository = Mockito.mock(AppRepository::class.java)
+    private var viewModel: MovieViewModel? = null
 
     @Mock
     private lateinit var response: MoviesResponse
@@ -47,28 +46,22 @@ class MovieViewModelTest{
     @Before
     fun setup(){
         MockitoAnnotations.initMocks(this)
-        Dispatchers.setMain(testDispatcher)
+        viewModel = MovieViewModel(repository)
     }
 
     @After
-    fun tearDown(){
-        Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
-        testDispatcher.cleanupTestCoroutines()
-    }
+    fun tearDown(){}
 
     @Test
-    fun getMovies() = testDispatcher.runBlockingTest {
-        GlobalScope.launch {
-            `when`(repository?.getMovies()).thenReturn(response)
+    fun getMovies() {
+        val fakeData : MutableLiveData<PagedList<Movie>> = MutableLiveData()
+        val pagedList = mock(PagedList::class.java)
 
-            val moviesResponse = repository.getMovies()
-            verify(repository)?.getMovies()
 
-            assertNotNull(moviesResponse)
+        fakeData.value = pagedList as PagedList<Movie>
 
-            assertTrue(moviesResponse.results.size>1)
-
-        }
+        `when`(repository.getRemoteMovies()).thenReturn(fakeData)
+        verify(repository).getRemoteMovies()
     }
 
 }

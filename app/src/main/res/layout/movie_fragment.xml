@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             xmlns:shimmer="http://schemas.android.com/apk/res-auto"
-             tools:context="com.surya.androidjetpackpro.ui.movie.MovieFragment">
-
-   <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-           android:id="@+id/swipeRefresh"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent">
+<layout
+  xmlns:shimmer="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+   <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.surya.androidjetpackpro.ui.movie.MovieFragment">
 
       <androidx.recyclerview.widget.RecyclerView
               android:id="@+id/rv_movie"
@@ -17,22 +14,22 @@
               android:layout_height="match_parent">
 
       </androidx.recyclerview.widget.RecyclerView>
-   </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-   <com.facebook.shimmer.ShimmerFrameLayout
-           android:id="@+id/shimmer"
-           shimmer:auto_start="true"
-           android:layout_gravity="center"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:layout_margin="15dp"
-           android:orientation="vertical"
-           shimmer:duration="800">
+      <com.facebook.shimmer.ShimmerFrameLayout
+              android:id="@+id/shimmer"
+              shimmer:auto_start="true"
+              android:layout_gravity="center"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_margin="15dp"
+              android:orientation="vertical"
+              shimmer:duration="800">
 
-      <!-- Adding 7 rows of placeholders -->
-      <include layout="@layout/shimmer"/>
+         <!-- Adding 7 rows of placeholders -->
+         <include layout="@layout/shimmer"/>
 
-   </com.facebook.shimmer.ShimmerFrameLayout>
+      </com.facebook.shimmer.ShimmerFrameLayout>
 
-</FrameLayout>
+   </FrameLayout>
+</layout>

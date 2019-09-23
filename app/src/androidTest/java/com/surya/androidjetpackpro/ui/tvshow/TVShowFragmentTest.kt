@@ -45,5 +45,7 @@ class TVShowFragmentTest {
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         Espresso.onView(ViewMatchers.withId(R.id.rv_tv_show))
             .perform(RecyclerViewActions.actionOnItemAtPosition<ViewHolder>(0, ViewActions.click()))
+
+        Espresso.onView(ViewMatchers.withId(R.id.menu_add_to_favorite)).perform(ViewActions.click())
     }
 }

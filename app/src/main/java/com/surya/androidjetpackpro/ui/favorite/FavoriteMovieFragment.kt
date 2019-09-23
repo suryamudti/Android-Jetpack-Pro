@@ -10,28 +10,27 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.dicoding.surya.mademovieapp.ui.movie.MovieItem
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.surya.androidjetpackpro.R
-import com.surya.androidjetpackpro.data.models.Movie
-import com.surya.androidjetpackpro.ui.movie.MovieViewModel
-import com.surya.androidjetpackpro.ui.movie.MovieViewModelFactory
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.ViewHolder
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.kodein
-import org.kodein.di.generic.instance
+import com.surya.androidjetpackpro.di.Injection
+import com.surya.androidjetpackpro.ui.movie.MoviesPagedListAdapter
 
 /**
  * A simple [Fragment] subclass.
  */
-class FavoriteMovieFragment : Fragment(), KodeinAware {
+class FavoriteMovieFragment : Fragment(){
 
-    override val kodein by kodein()
+    companion object {
+        fun newInstance(): FavoriteMovieFragment {
+            return FavoriteMovieFragment()
+        }
+    }
 
-    private val factory : MovieViewModelFactory by instance()
+    private val adapterList: MoviesPagedListAdapter by lazy {
+        MoviesPagedListAdapter()
+    }
 
-    private lateinit var mainViewModel: MovieViewModel
+    private lateinit var vm: FavoriteMovieViewModel
 
     private lateinit var shimmer: ShimmerFrameLayout
     private lateinit var recyclerView: RecyclerView
@@ -49,30 +48,23 @@ class FavoriteMovieFragment : Fragment(), KodeinAware {
 
         shimmer = view.findViewById(R.id.shimmer)
         recyclerView = view.findViewById(R.id.rv_movie)
+        shimmer.startShimmerAnimation()
+
 
         recyclerView.layoutManager = GridLayoutManager(context,2)
         recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = adapterList
 
-        mainViewModel = ViewModelProviders.of(this, factory).get(MovieViewModel::class.java)
+        vm = ViewModelProviders.of(this, Injection.provideViewModelFactory(requireContext()) )
+            .get(FavoriteMovieViewModel::class.java)
 
-        mainViewModel.getLocalMovie().observe(this, Observer {
-
-            if (it != null){
-                shimmer.visibility = View.GONE
-                val mAdapter = GroupAdapter<ViewHolder>().apply {
-                    addAll(it.toItem())
-                }
-                recyclerView.adapter = mAdapter
-            }
+        vm.favMovies.observe(this, Observer {
+            adapterList.submitList(it)
+            shimmer.visibility = View.GONE
         })
 
-        shimmer.visibility = View.VISIBLE
     }
 
-    private fun List<Movie>.toItem() : List<MovieItem>{
-        return this.map {
-            MovieItem(it)
-        }
-    }
+
 
 }

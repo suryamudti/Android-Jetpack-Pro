@@ -13,8 +13,8 @@ import org.json.JSONObject
 @Entity
 @Parcelize
 data class Movie (
-    @PrimaryKey(autoGenerate = false)
-    var id: Int,
+    @PrimaryKey
+    var id: Int = 0,
     var title: String,
     var release_date: String,
     var vote_average: String,

@@ -29,4 +29,6 @@ class TabAdapter internal constructor(fm: FragmentManager) : FragmentStatePagerA
     override fun getCount(): Int {
         return mFragmentList.size
     }
+
+    
 }

@@ -15,14 +15,18 @@ class MainActivity : AppCompatActivity() {
     private val SELECTED_MENU = "selected_menu"
     private var navView: BottomNavigationView? = null
 
+    private val movieFragment: MovieFragment = MovieFragment()
+    private val tvShowFragment: TVShowFragment = TVShowFragment()
+
+
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.action_movie -> {
-                switchFragment(MovieFragment())
+                switchFragment(movieFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.action_tvshow -> {
-                switchFragment(TVShowFragment())
+                switchFragment(tvShowFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.action_favorite -> {
@@ -47,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         navView = findViewById(R.id.navigation)
         navView!!.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        switchFragment(MovieFragment())
+        switchFragment(movieFragment)
         savedInstanceState?.getInt(SELECTED_MENU) ?: (navView!!.selectedItemId == R.id.action_movie)
     }
 
@@ -55,4 +59,5 @@ class MainActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         outState.putInt(SELECTED_MENU, navView!!.selectedItemId)
     }
+
 }
