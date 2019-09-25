@@ -1,6 +1,9 @@
 package com.surya.androidjetpackpro.ui.movie
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.paging.PagedList
+import com.surya.androidjetpackpro.data.models.Movie
 import com.surya.androidjetpackpro.data.repositories.AppRepository
 
 /**
@@ -10,5 +13,9 @@ class MovieViewModel(
     private val repository: AppRepository
 ) : ViewModel(){
 
-    val movieList = repository.getRemoteMovies()
+    fun getMovies() : LiveData<PagedList<Movie>>{
+        val list = repository.getRemoteMovies()
+
+        return list
+    }
 }

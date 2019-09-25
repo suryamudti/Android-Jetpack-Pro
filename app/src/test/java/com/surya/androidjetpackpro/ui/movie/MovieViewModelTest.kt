@@ -1,11 +1,18 @@
 package com.surya.androidjetpackpro.ui.movie
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.surya.androidjetpackpro.data.models.Movie
+import com.surya.androidjetpackpro.data.paging.MovieDataSourceFactory
+import com.surya.androidjetpackpro.data.remote.MyApiService
 import com.surya.androidjetpackpro.data.remote.responses.MoviesResponse
 import com.surya.androidjetpackpro.data.repositories.AppRepository
+import com.surya.androidjetpackpro.ui.utils.mockPagedList
+import com.surya.androidjetpackpro.utils.Resource
 import junit.framework.Assert.assertNotNull
 import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.Dispatchers
@@ -37,11 +44,11 @@ class MovieViewModelTest{
     @JvmField
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val repository = Mockito.mock(AppRepository::class.java)
-    private var viewModel: MovieViewModel? = null
+    @Mock
+    private val repository = mock(AppRepository::class.java)
 
     @Mock
-    private lateinit var response: MoviesResponse
+    private var viewModel: MovieViewModel? = null
 
     @Before
     fun setup(){
@@ -53,15 +60,21 @@ class MovieViewModelTest{
     fun tearDown(){}
 
     @Test
-    fun getMovies() {
-        val fakeData : MutableLiveData<PagedList<Movie>> = MutableLiveData()
-        val pagedList = mock(PagedList::class.java)
+    fun getMovies_test(){
+        val dummyData : MutableLiveData<PagedList<Movie>> = MutableLiveData()
 
+        val pagedList  = mock(PagedList::class.java)
 
-        fakeData.value = pagedList as PagedList<Movie>
+        dummyData.value = pagedList as PagedList<Movie>
 
-        `when`(repository.getRemoteMovies()).thenReturn(fakeData)
-        verify(repository).getRemoteMovies()
+        `when`(viewModel?.getMovies()).thenReturn(dummyData)
+
+        val observer  = mock(Observer::class.java) as Observer<PagedList<Movie>>
+
+        viewModel?.getMovies()?.observeForever(observer)
+
+        verify(observer).onChanged(pagedList)
+        assertNotNull(viewModel?.getMovies())
     }
 
 }

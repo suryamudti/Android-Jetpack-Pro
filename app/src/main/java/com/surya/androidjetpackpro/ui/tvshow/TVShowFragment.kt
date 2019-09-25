@@ -1,31 +1,17 @@
 package com.surya.androidjetpackpro.ui.tvshow
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.facebook.shimmer.ShimmerFrameLayout
 import com.surya.androidjetpackpro.R
-import com.surya.androidjetpackpro.data.models.TVShow
 import com.surya.androidjetpackpro.databinding.TvshowFragmentBinding
 import com.surya.androidjetpackpro.di.Injection
-import com.surya.androidjetpackpro.ui.movie.MovieViewModel
-import com.surya.androidjetpackpro.ui.movie.MoviesPagedListAdapter
-import com.surya.androidjetpackpro.utils.Constants
-import com.surya.androidjetpackpro.utils.EspressoIdlingResource
-import com.surya.androidjetpackpro.utils.toast
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.ViewHolder
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.kodein
-import org.kodein.di.generic.instance
 
 class TVShowFragment : Fragment() {
 
@@ -64,7 +50,7 @@ class TVShowFragment : Fragment() {
         binder.rvTvShow.setHasFixedSize(true)
 
 
-        viewModel.tvShowList.observe(this, Observer {
+        viewModel.getTvShow().observe(this, Observer {
             adapterList.submitList(it)
             if (it != null){
                 binder.rvTvShow.visibility = View.VISIBLE

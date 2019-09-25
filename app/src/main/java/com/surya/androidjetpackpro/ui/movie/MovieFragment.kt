@@ -49,7 +49,7 @@ class MovieFragment : Fragment() {
         binding.rvMovie.layoutManager = GridLayoutManager(context,2)
         binding.rvMovie.setHasFixedSize(true)
 
-        viewModel.movieList.observe(this, Observer {
+        viewModel.getMovies().observe(this, Observer {
             adapterList.submitList(it)
             binding.rvMovie.visibility = View.VISIBLE
             binding.shimmer.visibility = View.GONE
