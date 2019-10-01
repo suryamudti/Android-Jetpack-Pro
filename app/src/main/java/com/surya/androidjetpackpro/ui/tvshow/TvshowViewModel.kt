@@ -10,10 +10,5 @@ class TvshowViewModel(
     private val repository: AppRepository
 ) : ViewModel() {
 
-    fun getTvShow() : LiveData<PagedList<TVShow>>{
-
-        val list = repository.getRemoteTvShow()
-
-        return list
-    }
+    fun getTvShow() : LiveData<PagedList<TVShow>> = repository.getRemoteTvShow()
 }

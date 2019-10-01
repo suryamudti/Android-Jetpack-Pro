@@ -13,9 +13,5 @@ class MovieViewModel(
     private val repository: AppRepository
 ) : ViewModel(){
 
-    fun getMovies() : LiveData<PagedList<Movie>>{
-        val list = repository.getRemoteMovies()
-
-        return list
-    }
+    fun getMovies() : LiveData<PagedList<Movie>> = repository.getRemoteMovies()
 }
